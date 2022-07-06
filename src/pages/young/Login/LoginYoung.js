@@ -1,7 +1,7 @@
 import React from "react";
 
-const Hi = () => {
+const LoginYoung = () => {
   return <div>안녕</div>;
 };
 
-export default Hi;
+export default LoginYoung;

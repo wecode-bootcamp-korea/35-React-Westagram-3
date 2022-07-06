@@ -1,7 +1,7 @@
 import React from "react";
 
-const Hi = () => {
+const MainYebin = () => {
   return <div>안녕</div>;
 };
 
-export default Hi;
+export default MainYebin;
