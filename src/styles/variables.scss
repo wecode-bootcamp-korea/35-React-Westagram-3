@@ -1,0 +1,7 @@
+$border: 1px solid black;
+
+@mixin flexCenter() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
