@@ -1,25 +1,28 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+//nav 컴포넌트
+import Nav from '../src/components/Nav/Nav';
 
 //강철 컴포넌트
-import LoginKang from "./pages/kang/Login/LoginKang";
-import MainKang from "./pages/kang/Main/MainKang";
+import LoginKang from './pages/kang/Login/LoginKang';
+import MainKang from './pages/kang/Main/MainKang';
 
 //영수 컴포넌트
-import LoginYoung from "./pages/young/Login/LoginYoung";
-import MainYoung from "./pages/young/Main/MainYoung";
+import LoginYoung from './pages/young/Login/LoginYoung';
+import MainYoung from './pages/young/Main/MainYoung';
 
 //예빈 컴포넌트
-import LoginYebin from "./pages/yebin/Login/LoginYebin";
-import MainYebin from "./pages/yebin/Main/MainYebin";
+import LoginYebin from './pages/yebin/Login/LoginYebin';
+import MainYebin from './pages/yebin/Main/MainYebin';
 
 //승연 컴포넌트
-import LoginYeon from "./pages/yeon/Login/LoginYeon";
-import MainYeon from "./pages/yeon/Main/MainYeon";
+import LoginYeon from './pages/yeon/Login/LoginYeon';
+import MainYeon from './pages/yeon/Main/MainYeon';
 
 function Router() {
   return (
     <BrowserRouter>
+      <Nav />
       <Routes>
         <Route path="/login-kang" element={<LoginKang />} />
         <Route path="/main-kang" element={<MainKang />} />
