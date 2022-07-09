@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const MainYoung = () => {
   return <div>안녕</div>;
