@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Story from '../../../components/Nav/yebin/Story';
-import Follow from '../../../components/Nav/yebin/Follow';
-import Post from '../../../components/Nav/yebin/Post';
+import Story from '../../../components/yebin/Story';
+import Follow from '../../../components/yebin/Follow';
+import Post from '../../../components/yebin/Post';
 
 import './MainYebin.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
