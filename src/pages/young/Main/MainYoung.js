@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
-import './MainYoung.scss';
-import '../../../styles/common.scss';
+import CommentList from './CommentList'; // 댓글 컴포넌트
+import { StoryData } from './data';
 
 const Main = () => {
+  const [userName] = useState('zlZonys12'); // 댓글 입력 이름
+  const [comment, setComment] = useState(''); // 댓글 입력창
+  const [feedComments, setFeedComments] = useState([]); // 댓글들을 넣을 배열
+
+  const post = e => {
+    // 게시 버튼 눌렀을 시 함수
+    e.preventDefault(); // form으로 인한 새로고침 막아줌
+    const copyFeedComments = [...feedComments]; // copyFeedComment에 배열을 복사
+    copyFeedComments.push(comment); // 입력되는 comment를 배열에 push
+    setFeedComments(copyFeedComments); // 입력된 카피된 배열의 값들은 FeedComments의 값이 됨.
+    setComment(''); // 입력됐으니 입력한 댓글창 초기화
+  };
+
   return (
     <div className="main">
       <header>
@@ -50,15 +63,33 @@ const Main = () => {
             <div className="like-number">
               wecode_bootcamp님 외 4명이 좋아합니다.
             </div>
-            <div className="comment" />
-            <div className="comment-insert">
-              <input
-                type="text"
-                className="comment-content"
-                placeholder="댓글 달기..."
-              />
-              <button className="insert">게시</button>
-            </div>
+            <form onSubmit={post}>
+              <div className="comment">
+                {feedComments.map((commentArr, i) => {
+                  return (
+                    <CommentList
+                      userName={userName}
+                      userComment={commentArr}
+                      key={i}
+                    />
+                  );
+                })}
+              </div>
+              <div className="comment-insert">
+                <input
+                  type="text"
+                  className="comment-content"
+                  placeholder="댓글 달기..."
+                  onChange={e => {
+                    setComment(e.target.value);
+                  }}
+                  value={comment}
+                />
+                <button className="insert" onClick={post}>
+                  게시
+                </button>
+              </div>
+            </form>
           </div>
         </div>
         <div className="main-right">
@@ -74,54 +105,22 @@ const Main = () => {
           <div className="story">
             <p className="story-p" />
             <div className="story-peoples">
-              <div className="nameTag">
-                <img
-                  src="/images/young/people.jpg"
-                  className="profile"
-                  alt=""
-                />
-                <p>
-                  0___s00
-                  <br />
-                  <span>영숙</span>
-                </p>
-              </div>
-              <div className="nameTag">
-                <img
-                  src="/images/young/people.jpg"
-                  className="profile"
-                  alt=""
-                />
-                <p>
-                  0___s00
-                  <br />
-                  <span>영순</span>
-                </p>
-              </div>
-              <div className="nameTag">
-                <img
-                  src="/images/young/people.jpg"
-                  className="profile"
-                  alt=""
-                />
-                <p>
-                  0___s00
-                  <br />
-                  <span>영신</span>
-                </p>
-              </div>
-              <div className="nameTag">
-                <img
-                  src="/images/young/people.jpg"
-                  className="profile"
-                  alt=""
-                />
-                <p>
-                  0___s00
-                  <br />
-                  <span>영사</span>
-                </p>
-              </div>
+              {StoryData.map(info => {
+                return (
+                  <div className="nameTag" key={info.id}>
+                    <img
+                      src="/images/young/people.jpg"
+                      className="profile"
+                      alt=""
+                    />
+                    <p>
+                      0___s00
+                      <br />
+                      <span>{info.content}</span>
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="recommend" />

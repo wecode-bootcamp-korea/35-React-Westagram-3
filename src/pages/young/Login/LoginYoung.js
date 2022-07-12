@@ -1,19 +1,29 @@
-import React from 'react';
-import './LoginYoung.scss';
+import { React, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { useState } from 'react';
 
 const Login = () => {
   const navigate = useNavigate();
   const goToMain = () => {
     navigate('/main-young');
   };
-  const [disabled, setdisabled] = useState('true');
+  const [disabled, setDisabled] = useState(true); // 버튼 disabled
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
-  const handleldInput = e => {
-    setId(e.target.value);
-    console.log(id);
+  const handleldInputId = e => {
+    // id 값
+    const { value } = e.target;
+    setId(value);
+  };
+  const handleldInputPwd = e => {
+    // password 값
+    const { value } = e.target;
+    setPwd(value);
+  };
+  const loginActive = () => {
+    // id가 @ 를 포함하고 password의 길이가 5자 이상일 때 버튼활성화
+    return id.includes('@') && pwd.length > 4
+      ? setDisabled(false)
+      : setDisabled(true);
   };
 
   return (
@@ -23,12 +33,13 @@ const Login = () => {
           <div className="logo">Westagram</div>
         </header>
         <section>
-          <form onChange={handleldInput}>
+          <form onKeyUp={loginActive}>
             <div>
               <input
                 type="text"
                 placeholder="전화번호, 사용자 이름 또는 이메일"
                 className="login-id"
+                onChange={handleldInputId}
               />
             </div>
             <div>
@@ -36,6 +47,7 @@ const Login = () => {
                 type="password"
                 placeholder="비밀번호"
                 className="login-pwd"
+                onChange={handleldInputPwd}
               />
             </div>
           </form>
