@@ -18,13 +18,13 @@ const LoginYeon = () => {
 
   return (
     <>
-      <div class="container">
-        <div class="main-area">
-          <div class="left-area"></div>
-          <div class="right-area">
-            <form class="login-wrap">
+      <div className="container">
+        <div className="main-area">
+          <div className="left-area"></div>
+          <div className="right-area">
+            <form className="login-wrap">
               <p id="logo">Westagram</p>
-              <div class="input-wrap">
+              <div className="input-wrap">
                 <input
                   type="text"
                   id="id"
@@ -58,25 +58,25 @@ const LoginYeon = () => {
               >
                 로그인
               </button>
-              <div class="text-or">
-                <div class="line"></div>
-                <div class="or">또는</div>
-                <div class="line"></div>
+              <div className="text-or">
+                <div className="line"></div>
+                <div className="or">또는</div>
+                <div className="line"></div>
               </div>
-              <p class="login-fb">
-                <i class="xi-facebook-official"></i> Facebook으로 로그인
+              <p className="login-fb">
+                <i className="xi-facebook-official"></i> Facebook으로 로그인
               </p>
-              <Link to="/Main" class="forgot-pw">
+              <Link to="/Main" className="forgot-pw">
                 비밀번호를 잊으셨나요?
               </Link>
             </form>
-            <div class="join-wrap">
-              <p class="no-account">
+            <div className="join-wrap">
+              <p className="no-account">
                 계정이 없으신가요?<strong>가입하기</strong>
               </p>
             </div>
-            <p class="download-text">앱을 다운로드하세요.</p>
-            <div class="download-wrap">
+            <p className="download-text">앱을 다운로드하세요.</p>
+            <div className="download-wrap">
               <a href="#!">
                 <img src="/img/downloadAppStore.png" alt="downloadAppStore" />
               </a>
@@ -146,8 +146,8 @@ const LoginYeon = () => {
               <a href="#!">시각 예술</a>
             </li>
           </ul>
-          <p class="copy">
-            <span class="lang">한국어</span>
+          <p className="copy">
+            <span className="lang">한국어</span>
             &copy; 2022 Instagram from Meta
           </p>
         </footer>
