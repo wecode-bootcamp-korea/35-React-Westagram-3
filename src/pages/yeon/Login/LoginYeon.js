@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './LoginYeon.scss';
+import './Login.scss';
 
-const LoginYeon = () => {
+const Login = () => {
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
 
@@ -44,17 +44,24 @@ const LoginYeon = () => {
               </div>
               <button
                 id="login-btn"
-                type="submit"
+                //  type="submit"
                 disabled={checkValue()}
-                onClick={fetch('http://10.58.56.109:8000/users/login', {
-                  method: 'POST',
-                  body: JSON.stringify({
-                    email: id,
-                    password: pw,
-                  }),
-                })
-                  .then(response => response.json())
-                  .then(result => console.log('결과: ', result))}
+                onClick={e => {
+                  e.preventDefault();
+                  fetch('http://10.58.6.78:8000/users/login', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      email: id,
+                      password: pw,
+                    }),
+                  })
+                    .then(response => response.json())
+                    .then(result => {
+                      if (result.message) {
+                        localStorage.setItem('this-token', result.message);
+                      }
+                    });
+                }}
               >
                 로그인
               </button>
@@ -72,7 +79,10 @@ const LoginYeon = () => {
             </form>
             <div className="join-wrap">
               <p className="no-account">
-                계정이 없으신가요?<strong>가입하기</strong>
+                계정이 없으신가요?
+                <strong>
+                  <Link to="./Join">가입하기</Link>
+                </strong>
               </p>
             </div>
             <p className="download-text">앱을 다운로드하세요.</p>
@@ -156,4 +166,4 @@ const LoginYeon = () => {
   );
 };
 
-export default LoginYeon;
+export default Login;
