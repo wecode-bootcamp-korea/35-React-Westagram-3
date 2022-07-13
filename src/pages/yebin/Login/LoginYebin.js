@@ -27,9 +27,27 @@ const LoginYebin = () => {
   };
 
   //ID에 @포함하고 PW가 5글자 이상이면 페이지 이동
-  const gotoMain = () => {
-    navigate('/main-yebin');
+  const gotoMain = e => {
+    e.preventDefault();
+    fetch('http://10.58.6.45.:8000/user/signup', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: id,
+        password: pw,
+        name: '정예빈',
+        mobile_number: 'dsfdfsdfd',
+      }),
+    })
+      .then(response => response.json())
+      .then(result => {
+        if (result.message === 'SUCCESS') {
+          navigate('/main-yebin');
+        }
+        localStorage.setItem('key', result.token);
+      });
   };
+  localStorage.setItem('gkdl', '12321312312');
+  // console.log(localStorage.getItem('gkdl'));
 
   return (
     <div id="loginWrap">

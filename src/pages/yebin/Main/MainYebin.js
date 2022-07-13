@@ -28,18 +28,18 @@ const MainYebin = () => {
             <Link to="/login-yebin">Instagram</Link>
           </li>
           <li className="search">
-            <FontAwesomeIcon icon={faMagnifyingGlass} classNameName="glass" />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="glass" />
             <input type="search" placeholder="검색" />
           </li>
           <li>
             <span>
-              <FontAwesomeIcon icon={faCompass} classNameName="icon" />
+              <FontAwesomeIcon icon={faCompass} className="icon" />
             </span>
             <span>
-              <FontAwesomeIcon icon={faHeart} classNameName="icon" />
+              <FontAwesomeIcon icon={faHeart} className="icon" />
             </span>
             <span>
-              <FontAwesomeIcon icon={faUser} classNameName="icon" />
+              <FontAwesomeIcon icon={faUser} className="icon" />
             </span>
           </li>
         </ul>
@@ -70,16 +70,13 @@ const MainYebin = () => {
               <div className="checkicon">
                 <ul>
                   <li>
-                    <FontAwesomeIcon icon={faHeart} classNameName="heart" />
+                    <FontAwesomeIcon icon={faHeart} className="heart" />
                   </li>
                   <li>
-                    <FontAwesomeIcon icon={faComment} classNameName="heart" />
+                    <FontAwesomeIcon icon={faComment} className="heart" />
                   </li>
                   <li>
-                    <FontAwesomeIcon
-                      icon={faShareNodes}
-                      classNameName="heart"
-                    />
+                    <FontAwesomeIcon icon={faShareNodes} className="heart" />
                   </li>
                 </ul>
               </div>
@@ -103,7 +100,7 @@ const MainYebin = () => {
                   </p>
                   <p className="time">5분전</p>
                 </div>
-                <Post />
+                <Post name="ID" />
               </div>
             </div>
           </div>
