@@ -151,7 +151,7 @@ function ImgAdding(props) {
     <img
       className="post"
       alt="pictures"
-      src={process.env.PUBLIC_URL + 'images/kang/' + props.i + '.jpg'}
+      src={process.env.PUBLIC_URL + 'images/kang/' + props.id + '.jpg'}
       onClick={() => {
         props.navigate('./reply-kang/' + props.id);
       }}
