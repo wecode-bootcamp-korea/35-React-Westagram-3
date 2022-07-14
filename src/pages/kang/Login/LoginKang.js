@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import './LoginKang.scss';
 
 const LoginKang = () => {
@@ -67,10 +66,11 @@ const LoginKang = () => {
                 />
                 <button
                   type="button"
-                  style={{
-                    opacity: loginId.length > 3 && loginPwd.length > 3 && 1,
-                  }}
-                  className="login__btn"
+                  className={`login__btn " + ${
+                    loginId.length > 3 &&
+                    loginPwd.length > 3 &&
+                    'login__btn__opacity'
+                  }`}
                   onClick={() => {
                     regEx_email.test(loginId) && loginPwd.length > 5
                       ? navigate('/main-kang')

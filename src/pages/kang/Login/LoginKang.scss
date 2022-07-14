@@ -1,5 +1,6 @@
 @import '../../../styles/kangchulcommon/kangchulcommon.scss';
-@import '../../../styles/reset.scss';
+@import '../../../styles/kangchulcommon/kangchulvariables.scss';
+@import '../../../styles/kangchulcommon/kangchulmixin.scss';
 
 .login__page {
   .login__main {
@@ -101,6 +102,10 @@
             opacity: 0.5;
             background-color: var(--blue);
             cursor: pointer;
+          }
+
+          .login__btn__opacity {
+            opacity: 1;
           }
         }
 
