@@ -5,10 +5,23 @@ import './LoginKang.scss';
 const LoginKang = () => {
   const regEx_email =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-  const [loginId, setLoginId] = useState('');
-  const [loginPwd, setLoginPwd] = useState('');
+
+  const { loginUser, setLoginUser } = useState({
+    email: '',
+    password: '',
+  });
   const navigate = useNavigate();
   const [imgFadeInOutBtn, setImgFadeInOutBtn] = useState(true);
+
+  const loginInputHandler = e => {
+    const { name, value } = e.target;
+    setLoginUser({
+      ...loginUser,
+      [name]: value,
+    });
+  };
+
+  const { email, password } = loginUser;
 
   function imgFadeInOut() {
     imgFadeInOutBtn === true
@@ -52,27 +65,29 @@ const LoginKang = () => {
                   type="text"
                   className="id__input"
                   placeholder="전화번호, 사용자 이름 또는 이메일"
+                  name="email"
                   onChange={e => {
-                    setLoginId(e.target.value);
+                    loginInputHandler(e);
                   }}
                 />
                 <input
                   type="password"
                   className="pwd__input"
                   placeholder="비밀번호"
+                  name="password"
                   onChange={e => {
-                    setLoginPwd(e.target.value);
+                    loginInputHandler(e);
                   }}
                 />
                 <button
                   type="button"
                   className={`login__btn " + ${
-                    loginId.length > 3 &&
-                    loginPwd.length > 3 &&
+                    email.length > 3 &&
+                    password.length > 3 &&
                     'login__btn__opacity'
                   }`}
                   onClick={() => {
-                    regEx_email.test(loginId) && loginPwd.length > 5
+                    regEx_email.test(email) && password.length > 5
                       ? navigate('/main-kang')
                       : alert('로그인 정보 입력이 잘못되었습니다.');
                   }}
