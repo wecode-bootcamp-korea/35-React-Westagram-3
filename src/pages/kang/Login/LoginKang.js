@@ -5,13 +5,12 @@ import './LoginKang.scss';
 const LoginKang = () => {
   const regEx_email =
     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-
-  const { loginUser, setLoginUser } = useState({
-    email: '',
-    password: '',
-  });
   const navigate = useNavigate();
-  const [imgFadeInOutBtn, setImgFadeInOutBtn] = useState(true);
+
+  const [loginUser, setLoginUser] = useState({
+    email: '',
+    passwrod: '',
+  });
 
   const loginInputHandler = e => {
     const { name, value } = e.target;
@@ -23,6 +22,7 @@ const LoginKang = () => {
 
   const { email, password } = loginUser;
 
+  const [imgFadeInOutBtn, setImgFadeInOutBtn] = useState(true);
   function imgFadeInOut() {
     imgFadeInOutBtn === true
       ? setImgFadeInOutBtn(() => {
@@ -32,7 +32,6 @@ const LoginKang = () => {
           return true;
         });
   }
-
   useInterval(() => {
     imgFadeInOut();
   }, 3000);
@@ -82,9 +81,7 @@ const LoginKang = () => {
                 <button
                   type="button"
                   className={`login__btn " + ${
-                    email.length > 3 &&
-                    password.length > 3 &&
-                    'login__btn__opacity'
+                    email.length > 3 && 'login__btn__opacity'
                   }`}
                   onClick={() => {
                     regEx_email.test(email) && password.length > 5
@@ -170,12 +167,10 @@ const LoginKang = () => {
 function useInterval(callback, delay) {
   const savedCallback = useRef();
 
-  // Remember the latest callback.
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 
-  // Set up the interval.
   useEffect(() => {
     function tick() {
       savedCallback.current();

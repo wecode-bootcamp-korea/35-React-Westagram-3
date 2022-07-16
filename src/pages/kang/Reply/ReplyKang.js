@@ -1,24 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './ReplyKang.scss';
 import ProfileImg from '../../../components/componentkang/profile_img';
 
 const ReplyKang = () => {
   let id = useParams();
+  const idRef = useRef(1);
   const navigate = useNavigate();
-  const [replyInputValue, setReplyInput] = useState('');
-  const [replyInputArray, setReplyInputArray] = useState([]);
-  const [goodCountArray, setGoodCountArray] = useState([0]);
 
   const windowOutsideClickGoback = e => {
     e.target.className === 'reply__page' && navigate(-1);
   };
-  const addReplyInputToInputArray = e => {
+
+  const [inputValue, setInputValue] = useState('');
+  const [inputArray, setInputArray] = useState([
+    {
+      id: 0,
+      value: 'reply example',
+    },
+  ]);
+
+  const inputValueToArray = e => {
     e.preventDefault();
-    const newReplyInputArray = [...replyInputArray];
-    newReplyInputArray.push(replyInputValue);
-    setReplyInputArray(newReplyInputArray);
-    setReplyInput('');
+    const reply = {
+      id: idRef.current,
+      value: inputValue,
+    };
+    setInputArray([...inputArray, reply]);
+    setInputValue('');
+
+    idRef.current = idRef.current + 1;
   };
 
   return (
@@ -35,6 +46,7 @@ const ReplyKang = () => {
             backgroundImage: `url(/images/kang/${id[0]}.jpg)`,
           }}
         ></section>
+
         <section className="section__right">
           <div className="user__bar">
             <ProfileImg content="팔로우" />
@@ -42,16 +54,13 @@ const ReplyKang = () => {
             <ProfileImg content="Have a nice day" />
           </div>
 
-          {/* 여기 */}
-
           <ul className="reply__window">
-            {replyInputArray.map((data, i) => {
+            {inputArray.map(element => {
               return (
                 <SetReply
-                  data={data}
-                  index={i}
-                  goodCountArray={goodCountArray}
-                  setGoodCountArray={setGoodCountArray}
+                  key={element.id}
+                  id={element.id}
+                  data={element.value}
                 />
               );
             })}
@@ -74,11 +83,13 @@ const ReplyKang = () => {
             <div className="likes__count">좋아요 2개</div>
             <div className="date">오늘 날짜</div>
           </div>
+
           <div className="horizontal__line"></div>
+
           <form
             className="reply__form"
             onSubmit={e => {
-              addReplyInputToInputArray(e);
+              inputValueToArray(e);
             }}
           >
             <i className="fa-regular fa-face-angry"></i>
@@ -86,9 +97,9 @@ const ReplyKang = () => {
               required
               type="text"
               placeholder="댓글 달기..."
-              value={replyInputValue}
+              value={inputValue}
               onChange={e => {
-                setReplyInput(e.target.value);
+                setInputValue(e.target.value);
               }}
             />
             <button>게시</button>
@@ -99,33 +110,20 @@ const ReplyKang = () => {
   );
 };
 
-function SetReply(props) {
+function SetReply({ data, id }) {
   let [heartColorSwitch, setHeartColorSwitch] = useState(true);
+  let [likesCounter, setLikesCounter] = useState(0);
 
-  const goodCountArrayPushing = () => {
-    const goodCountbase = [...props.goodCountArray];
-    goodCountbase.push(0);
-    props.setGoodCountArray(goodCountbase);
-    console.log(props.goodCountArray);
-  };
-  const goodCountArrayPoping = () => {
-    const goodCountbase = [...props.goodCountArray];
-    goodCountbase.splice(props.index, 1, null);
-    props.setGoodCountArray(goodCountbase);
-  };
-  const goodCountPlusMinus = number => {
-    const newGoodCount = [...props.goodCountArray];
-    newGoodCount[props.index] = props.goodCountArray[props.index] + number;
-    props.setGoodCountArray(newGoodCount);
-  };
   const removeReply = e => {
     e.target.parentElement.remove();
   };
-
-  useEffect(() => {
-    goodCountArrayPushing();
-    return () => {};
-  }, []);
+  const heartChange = boolean => {
+    if (heartColorSwitch === boolean) {
+      return 'display__inline';
+    } else {
+      return 'display__none';
+    }
+  };
 
   return (
     <li className="reply__list">
@@ -133,40 +131,41 @@ function SetReply(props) {
       <div className="my__content">
         <div className="my__info">
           <span className="my__id">kangchullee</span>
-          <span className="my__talk"> {props.data} </span>
+          <span className="my__talk"> {data} </span>
         </div>
         <div className="my__status">
           <span className="my__likes">
             좋아요
-            <span className="likes__count--up">
-              &nbsp;{props.goodCountArray[props.index]}
-            </span>
-            개
+            <span className="likes__count--up">&nbsp;{likesCounter}</span>개
           </span>
           <span>답글달기</span>
         </div>
       </div>
       <i
-        className="heart__button fa-regular fa-heart"
-        onClick={() => {
-          goodCountPlusMinus(1);
-          setHeartColorSwitch(false);
+        className={`heart__button fa-regular fa-heart ${heartChange(true)}`}
+        id={id}
+        onClick={e => {
+          return (
+            setHeartColorSwitch(false),
+            setLikesCounter(prevState => prevState + 1)
+          );
         }}
-        style={{ display: heartColorSwitch === true ? 'inline' : 'none' }}
       ></i>
       <i
-        className="heart__button--active fa-solid fa-heart"
+        className={`heart__button--active fa-solid fa-heart ${heartChange(
+          false
+        )}`}
         onClick={() => {
-          goodCountPlusMinus(-1);
-          setHeartColorSwitch(true);
+          return (
+            setHeartColorSwitch(true),
+            setLikesCounter(prevState => prevState - 1)
+          );
         }}
-        style={{ display: heartColorSwitch === true ? 'none' : 'inline' }}
       ></i>
       <i
         className="xmark fa-solid fa-xmark"
         onClick={e => {
           removeReply(e);
-          goodCountArrayPoping();
         }}
       ></i>
     </li>

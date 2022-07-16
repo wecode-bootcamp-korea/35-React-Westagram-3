@@ -135,8 +135,10 @@ const MainKang = () => {
         </div>
 
         <div className="postings">
-          {data.map((element, i) => {
-            return <ImgAdding navigate={navigate} key={i} id={element.id} />;
+          {data.map(element => {
+            return (
+              <ImgAdding navigate={navigate} key={element.id} id={element.id} />
+            );
           })}
         </div>
       </main>

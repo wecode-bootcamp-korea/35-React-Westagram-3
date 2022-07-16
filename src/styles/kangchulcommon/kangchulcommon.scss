@@ -15,6 +15,13 @@ body,
   opacity: 0;
 }
 
+.display__none {
+  display: none;
+}
+.display__inline {
+  display: inline;
+}
+
 .horizontal__line {
   margin: auto;
   border-bottom: var(--border);
